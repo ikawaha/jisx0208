@@ -69,6 +69,7 @@ func ToValid(s, replacement string) string {
 	return b.String()
 }
 
+// RangeTable is the JIS X 0208 code table.
 var RangeTable = &unicode.RangeTable{
 	R16: []unicode.Range16{
 		{Lo: 0x20, Hi: 0x7E, Stride: 1},
