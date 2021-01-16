@@ -34,6 +34,5 @@ jobs:
       - name: Test
         run: |
           go test -v ./...
-          cd tokenizer; go test -benchmem -bench .; cd ..
         working-directory: src/github.com/ikawaha/encoding
 
