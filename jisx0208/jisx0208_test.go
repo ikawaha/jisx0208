@@ -62,7 +62,7 @@ func TestExtendedCharacterValidation(t *testing.T) {
 			t.Errorf("boundary value error, %v, 0x%0X", range32(v), v.Lo)
 		}
 		if !unicode.Is(RangeTable, rune(v.Hi)) {
-			fmt.Sprintf("boundary value error, %v, 0x%0X", range32(v), v.Hi)
+			t.Errorf("boundary value error, %v, 0x%0X", range32(v), v.Hi)
 		}
 	}
 }
