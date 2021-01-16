@@ -1,0 +1,33 @@
+run:
+  skip-dirs:
+    - jisx0208/tool
+issues:
+  exclude-use-default: false
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocyclo
+
+linters:
+  enable:
+    - gocyclo
+    - staticcheck
+    - govet
+    - golint
+  disable:
+    - maligned
+    - exhaustive
+    - noctx
+    - asciicheck
+    - sqlclosecheck
+    - rowserrcheck
+    - gosec
+    - scopelint
+  presets:
+    - bugs
+    - unused
+    - format
+
+linters-settings:
+  gocyclo:
+    min-complexity: 15
