@@ -165,7 +165,7 @@ func TestDiscriminator_Is(t *testing.T) {
 	t.Run("allow", func(t *testing.T) {
 		allow := []rune{'¥'}
 		disallow := []rune(nil)
-		d := NewDiscriminator(allow, disallow)
+		d := NewDiscriminator(Allow(allow...))
 		tests := []struct {
 			rune rune
 			want bool
@@ -184,7 +184,7 @@ func TestDiscriminator_Is(t *testing.T) {
 	t.Run("disallow", func(t *testing.T) {
 		allow := []rune(nil)
 		disallow := []rune{'あ'}
-		d := NewDiscriminator(allow, disallow)
+		d := NewDiscriminator(Disallow(disallow...))
 		tests := []struct {
 			rune rune
 			want bool
@@ -203,7 +203,7 @@ func TestDiscriminator_Is(t *testing.T) {
 	t.Run("allow and disallow", func(t *testing.T) {
 		allow := []rune{'髙'}
 		disallow := []rune{'あ'}
-		d := NewDiscriminator(allow, disallow)
+		d := NewDiscriminator(Allow(allow...), Disallow(disallow...))
 		tests := []struct {
 			rune rune
 			want bool
@@ -227,7 +227,7 @@ func TestDiscriminator_Is(t *testing.T) {
 
 func TestDiscriminator_ToValid(t *testing.T) {
 	t.Run("unspecified", func(t *testing.T) {
-		d := NewDiscriminator(nil, nil)
+		d := NewDiscriminator()
 		type args struct {
 			s           string
 			replacement string
@@ -287,7 +287,7 @@ func TestDiscriminator_ToValid(t *testing.T) {
 		}
 	})
 	t.Run("specified", func(t *testing.T) {
-		d := NewDiscriminator([]rune{'髙'}, []rune{'魚'})
+		d := NewDiscriminator(Allow('髙'), Disallow('魚'))
 		type args struct {
 			s           string
 			replacement string
