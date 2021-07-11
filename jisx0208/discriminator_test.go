@@ -1,6 +1,8 @@
 package jisx0208
 
 import (
+	"bufio"
+	"os"
 	"testing"
 )
 
@@ -81,6 +83,31 @@ func TestIs(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+func TestIs_Golden(t *testing.T) {
+	f, err := os.Open("./testdata/golden.txt")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	defer f.Close()
+	s := bufio.NewScanner(f)
+	var line int
+	for s.Scan() {
+		line++
+		txt := s.Text()
+		if txt == "" {
+			t.Errorf("invalid golden data, line=%d, %s", line, txt)
+			continue
+		}
+		v := []rune(txt)[0]
+		if !Is(v) {
+			t.Errorf("line=%d, want Is(%s)=true, got false", line, string(v))
+		}
+	}
+	if err := s.Err(); err != nil {
+		t.Fatalf("unexpected error: %v", err)
 	}
 }
 
