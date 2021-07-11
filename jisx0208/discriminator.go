@@ -17,29 +17,47 @@ func ToValid(s, replacement string) string {
 	return toValid(s, replacement, Is)
 }
 
+// Option represents an option for the discriminator.
+type Option func(d *Discriminator)
+
+// Allow is a discriminator option to set allow characters.
+func Allow(r ...rune) Option {
+	return func(d *Discriminator) {
+		d.allow = append(d.allow, r...)
+	}
+}
+
+// Disallow is a discriminator option to set disallow characters.
+func Disallow(r ...rune) Option {
+	return func(d *Discriminator) {
+		d.disallow = append(d.disallow, r...)
+	}
+}
+
 // Discriminator determines if a character is in JISX0208 or allowed/disallowed character.
 type Discriminator struct {
-	Allow    []rune
-	Disallow []rune
+	allow    []rune
+	disallow []rune
 }
 
 // NewDiscriminator returns a character discriminator.
-func NewDiscriminator(allow, disallow []rune) *Discriminator {
-	return &Discriminator{
-		Allow:    allow,
-		Disallow: disallow,
+func NewDiscriminator(options ...Option) *Discriminator {
+	var ret Discriminator
+	for _, option := range options {
+		option(&ret)
 	}
+	return &ret
 }
 
 // Is returns true if the rune r is in allowed characters, else if return false r is in disallowed characters,
 // otherwise whether r is in JIS X0208 or not.
 func (d *Discriminator) Is(r rune) bool {
-	for _, v := range d.Allow {
+	for _, v := range d.allow {
 		if v == r {
 			return true
 		}
 	}
-	for _, v := range d.Disallow {
+	for _, v := range d.disallow {
 		if v == r {
 			return false
 		}
