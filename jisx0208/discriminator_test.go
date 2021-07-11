@@ -3,6 +3,7 @@ package jisx0208
 import (
 	"bufio"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -99,6 +100,10 @@ func TestIs_Golden(t *testing.T) {
 		txt := s.Text()
 		if txt == "" {
 			t.Errorf("invalid golden data, line=%d, %s", line, txt)
+			continue
+		}
+		if strings.HasPrefix(txt, "!!!!") {
+			t.Log(txt)
 			continue
 		}
 		v := []rune(txt)[0]
