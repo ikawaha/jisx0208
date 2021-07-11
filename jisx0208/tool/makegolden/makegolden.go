@@ -15,7 +15,7 @@ const (
 	jisx0208htmlURL = "https://www.asahi-net.or.jp/~ax2s-kmtn/ref/jisx0208.html"
 )
 
-func OpenGoldenSrc(path string) (io.Reader, error) {
+func OpenGoldenSrc(path string) (io.ReadCloser, error) {
 	if !strings.HasPrefix(path, "https://") {
 		return os.Open(path)
 	}
@@ -28,7 +28,7 @@ func OpenGoldenSrc(path string) (io.Reader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return bytes.NewBuffer(b), nil
+	return io.NopCloser(bytes.NewBuffer(b)), nil
 }
 
 func MakeGolden(w io.Writer, werr io.Writer) error {
@@ -36,6 +36,7 @@ func MakeGolden(w io.Writer, werr io.Writer) error {
 	if err != nil {
 		return fmt.Errorf("cannot open golden src: %w", err)
 	}
+	defer r.Close()
 	doc, err := goquery.NewDocumentFromReader(r)
 	if err != nil {
 		return fmt.Errorf("invalid document src: %w", err)
