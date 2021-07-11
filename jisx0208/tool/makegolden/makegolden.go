@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"net/http"
@@ -23,12 +22,7 @@ func OpenGoldenSrc(path string) (io.ReadCloser, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer res.Body.Close()
-	b, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil, err
-	}
-	return io.NopCloser(bytes.NewBuffer(b)), nil
+	return res.Body, nil
 }
 
 func MakeGolden(w io.Writer, werr io.Writer) error {
