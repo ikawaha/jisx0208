@@ -42,7 +42,7 @@ var JISX0208SJIS = []CodeRange{
 	// 2区
 	{
 		Start: 0x819E + 0x1,
-		End:   0x81EE + 0xE,
+		End:   0x819E + 0xE,
 	},
 	{
 		Start: 0x81AE + 0xA,
@@ -55,6 +55,14 @@ var JISX0208SJIS = []CodeRange{
 	{
 		Start: 0x81CE + 0xC,
 		End:   0x81DE + 0xA,
+	},
+	{
+		Start: 0x81EE + 0x2,
+		End:   0x81EE + 0x9,
+	},
+	{
+		Start: 0x81EE + 0xE,
+		End:   0x81EE + 0xE,
 	},
 	// 3区
 	{
