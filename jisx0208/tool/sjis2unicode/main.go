@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ikawaha/encoding/unicode"
+	"github.com/ikawaha/encoding/internal"
 )
 
 func main() {
@@ -33,6 +33,6 @@ func main() {
 
 	runes := mapper.Runes()
 	//fmt.Printf("runes: %d\n", len(runes))
-	table := unicode.RangeTable(runes)
-	unicode.DumpRangeTable(os.Stdout, table)
+	table := internal.RangeTable(runes)
+	internal.DumpRangeTable(os.Stdout, table)
 }

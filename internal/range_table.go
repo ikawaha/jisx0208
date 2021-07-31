@@ -1,4 +1,4 @@
-package unicode
+package internal
 
 import (
 	"fmt"

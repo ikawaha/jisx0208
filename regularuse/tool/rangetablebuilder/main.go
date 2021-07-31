@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/ikawaha/encoding/unicode"
+	"github.com/ikawaha/encoding/internal"
 )
 
 const csvFilePath = "../../testdata/golden_jyouyou_H22-11-30.csv"
@@ -15,8 +15,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	table := unicode.RangeTable(runes)
-	unicode.DumpRangeTable(os.Stdout, table)
+	table := internal.RangeTable(runes)
+	internal.DumpRangeTable(os.Stdout, table)
 }
 
 func loadRunesFromCSV(path string) ([]rune, error) {
