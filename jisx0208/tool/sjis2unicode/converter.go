@@ -4,15 +4,10 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"io"
-	"sort"
-	"unicode"
 
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
 )
-
-const MaxUint16 = 1<<16 - 1
 
 type SJISCode []byte
 
@@ -510,59 +505,4 @@ func NewJIS0213RuneMapper() (*RuneMapper, error) {
 	}
 	return &ret, nil
 
-}
-
-// UnicodeRangeTable returns a range table for specified runes.
-func UnicodeRangeTable(runes []rune) *unicode.RangeTable {
-	if len(runes) == 0 {
-		return nil
-	}
-	sort.Slice(runes, func(i, j int) bool {
-		return runes[i] < runes[j]
-	})
-	var ret unicode.RangeTable
-	for start := 0; start < len(runes); {
-		end := start
-		for j := start + 1; j < len(runes); j++ {
-			if runes[j-1]+1 == runes[j] {
-				end = j
-				continue
-			}
-			break
-		}
-		if runes[end] <= MaxUint16 {
-			ret.R16 = append(ret.R16, unicode.Range16{
-				Lo:     uint16(runes[start]),
-				Hi:     uint16(runes[end]),
-				Stride: 1,
-			})
-		} else {
-			ret.R32 = append(ret.R32, unicode.Range32{
-				Lo:     uint32(runes[start]),
-				Hi:     uint32(runes[end]),
-				Stride: 1,
-			})
-		}
-		start = end + 1
-	}
-	return &ret
-}
-
-func DumpRangeTable(w io.Writer, table *unicode.RangeTable) {
-	fmt.Fprintln(w, "var RangeTable = &unicode.RangeTable{")
-	if len(table.R16) > 0 {
-		fmt.Println("\tR16: []unicode.Range16{")
-		for _, v := range table.R16 {
-			fmt.Fprintf(w, "\t\t{Lo: 0x%X, Hi: 0x%X, Stride: 1},\n", v.Lo, v.Hi)
-		}
-		fmt.Fprintln(w, "\t},")
-	}
-	if len(table.R32) > 0 {
-		fmt.Println("\tR32: []unicode.Range32{")
-		for _, v := range table.R32 {
-			fmt.Fprintf(w, "\t\t{Lo: 0x%X, Hi: 0x%X, Stride: 1},\n", v.Lo, v.Hi)
-		}
-		fmt.Fprintln(w, "\t},")
-	}
-	fmt.Fprintln(w, "}")
 }

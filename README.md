@@ -5,7 +5,10 @@
 
 This is a library related to character encoding.
 
-https://zenn.dev/ikawaha/articles/20210116-ab1ac4a692ae8bb4d9cf
-
+|package| description|
+|:---|:---|
+| jisx0208 | [JIS X 0208](https://zenn.dev/ikawaha/articles/20210116-ab1ac4a692ae8bb4d9cf) (JIS 基本漢字) |
+| regularuse | regular-use Chinese characters (常用漢字表) |
+| unicode | for internal use
 ---
 MIT

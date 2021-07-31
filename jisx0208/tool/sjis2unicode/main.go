@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"github.com/ikawaha/encoding/unicode"
 )
 
 func main() {
@@ -31,6 +33,6 @@ func main() {
 
 	runes := mapper.Runes()
 	//fmt.Printf("runes: %d\n", len(runes))
-	table := UnicodeRangeTable(runes)
-	DumpRangeTable(os.Stdout, table)
+	table := unicode.RangeTable(runes)
+	unicode.DumpRangeTable(os.Stdout, table)
 }
