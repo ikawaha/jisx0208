@@ -16,6 +16,12 @@ func IsNotRegularUse(r rune) bool {
 	return unicode.Is(unicode.Han, r) && !unicode.Is(RegularUseRangeTable, r)
 }
 
+// ReplaceNotRegularUseAll returns a copy of the string s with each run of not in regular-use kanji
+// replaced by the replacement string, which may be empty.
+func ReplaceNotRegularUseAll(s, replacement string) string {
+	return replace(s, replacement, func(r rune) bool { return !IsNotRegularUse(r) })
+}
+
 // Option represents an option for the discriminator.
 type Option func(d *RegularUseDiscriminator)
 
@@ -39,8 +45,8 @@ type RegularUseDiscriminator struct {
 	disallow []rune
 }
 
-// NewRegularDiscriminator returns a regular kanji character discriminator.
-func NewRegularDiscriminator(options ...Option) *RegularUseDiscriminator {
+// NewRegularUseDiscriminator returns a regular kanji character discriminator.
+func NewRegularUseDiscriminator(options ...Option) *RegularUseDiscriminator {
 	var ret RegularUseDiscriminator
 	for _, option := range options {
 		option(&ret)

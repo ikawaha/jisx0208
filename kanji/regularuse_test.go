@@ -23,7 +23,7 @@ func TestIs_Golden(t *testing.T) {
 		}
 		v := []rune(txt)[0]
 		if !IsRegularUse(v) {
-			t.Errorf("line=%d, want IsRegularHan(%s)=true, got false", line, string(v))
+			t.Errorf("line=%d, want IsRegularUse(%s)=true, got false", line, string(v))
 		}
 	}
 	if err := s.Err(); err != nil {
@@ -31,7 +31,7 @@ func TestIs_Golden(t *testing.T) {
 	}
 }
 
-func TestIsNotRegularUseHan(t *testing.T) {
+func TestIsNotRegularUse(t *testing.T) {
 	tests := []struct {
 		name string
 		args string
@@ -87,7 +87,43 @@ func TestIsRegularUse(t *testing.T) {
 	}
 }
 
-func TestRegularUseHanDiscriminator_IsNotRegularUseHan(t *testing.T) {
+func TestReplaceNotRegularUseAll(t *testing.T) {
+	type args struct {
+		s           string
+		replacement string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "no matching",
+			args: args{
+				s:           "漢字以外のひらがなやカタカナや😀などもOKとしています!",
+				replacement: "■",
+			},
+			want: "漢字以外のひらがなやカタカナや😀などもOKとしています!",
+		},
+		{
+			name: "replace",
+			args: args{
+				s:           "夜明け間際の𠮷野屋では",
+				replacement: "■",
+			},
+			want: "夜明け間際の■野屋では",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ReplaceNotRegularUseAll(tt.args.s, tt.args.replacement); got != tt.want {
+				t.Errorf("ReplaceNotRegularUseAll() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRegularUseDiscriminator_IsNotRegularUse(t *testing.T) {
 	type fields struct {
 		allow    []rune
 		disallow []rune
@@ -142,7 +178,7 @@ func TestRegularUseHanDiscriminator_IsNotRegularUseHan(t *testing.T) {
 	}
 }
 
-func TestRegularUseHanDiscriminator_ReplaceNotRegularUseHanAll(t *testing.T) {
+func TestRegularUseDiscriminator_ReplaceNotRegularUseAll(t *testing.T) {
 	type fields struct {
 		allow    []rune
 		disallow []rune
@@ -188,5 +224,25 @@ func TestRegularUseHanDiscriminator_ReplaceNotRegularUseHanAll(t *testing.T) {
 				t.Errorf("ReplaceNotRegularUseAll() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func TestAllow(t *testing.T) {
+	d := NewRegularUseDiscriminator(Allow('𠮷'))
+	for _, v := range "夜明け間際の𠮷野屋" {
+		if got, want := d.IsNotRegularUse(v), false; got != want {
+			t.Errorf("d.IsNotRegularUse(%c) = %v, want %v", v, got, want)
+		}
+	}
+}
+
+func TestDisallow(t *testing.T) {
+	d := NewRegularUseDiscriminator(Disallow([]rune{
+		'虞', '且', '遵', '朕', '但', '附', '又',
+	}...))
+	for _, v := range "虞且遵朕但附又" {
+		if got, want := d.IsNotRegularUse(v), true; got != want {
+			t.Errorf("d.IsNotRegularUse(%c) = %v, want %v", v, got, want)
+		}
 	}
 }
