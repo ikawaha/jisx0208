@@ -1,11 +1,11 @@
-package regularuse
+package kanji
 
 import (
 	"unicode"
 )
 
-// RangeTable is the regular-use Chinese characters table (常用漢字表).
-var RangeTable = &unicode.RangeTable{
+// RegularUseRangeTable is the regular-use Chinese characters table (常用漢字表).
+var RegularUseRangeTable = &unicode.RangeTable{
 	R16: []unicode.Range16{
 		{Lo: 0x4E00, Hi: 0x4E01, Stride: 1},
 		{Lo: 0x4E03, Hi: 0x4E03, Stride: 1},

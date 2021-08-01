@@ -1,4 +1,4 @@
-package regularuse
+package kanji
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func (r range32) String() string {
 
 func TestExtendedCharacterValidation(t *testing.T) {
 	// R16
-	for i, v := range RangeTable.R16 {
+	for i, v := range RegularUseRangeTable.R16 {
 		// stride check
 		if want, got := uint16(1), v.Stride; want != got {
 			t.Errorf("stride want %d, got %d", want, got)
@@ -31,37 +31,37 @@ func TestExtendedCharacterValidation(t *testing.T) {
 		}
 		// overlap check
 		if i != 0 {
-			vv := RangeTable.R16[i-1]
+			vv := RegularUseRangeTable.R16[i-1]
 			if vv.Hi > v.Lo {
 				t.Errorf("overlap %v, %v", range16(vv), range16(v))
 			}
 		}
 		// boundary check
-		if !unicode.Is(RangeTable, rune(v.Lo)) {
+		if !unicode.Is(RegularUseRangeTable, rune(v.Lo)) {
 			t.Errorf("boundary value error (lo), %v, 0x%04X", range16(v), v.Lo)
 		}
-		if !unicode.Is(RangeTable, rune(v.Hi)) {
+		if !unicode.Is(RegularUseRangeTable, rune(v.Hi)) {
 			t.Errorf("boundary value error (hi), %v, 0x%04X", range16(v), v.Hi)
 		}
 	}
 	// R32
-	for i, v := range RangeTable.R32 {
+	for i, v := range RegularUseRangeTable.R32 {
 		// stride check
 		if want, got := uint32(1), v.Stride; want != got {
 			t.Errorf("stride want %d, got %d", want, got)
 		}
 		// overlap check
 		if i != 0 {
-			vv := RangeTable.R32[i-1]
+			vv := RegularUseRangeTable.R32[i-1]
 			if vv.Hi > v.Lo {
 				t.Errorf("overlap %v, %v", range32(vv), range32(v))
 			}
 		}
 		// boundary check
-		if !unicode.Is(RangeTable, rune(v.Lo)) {
+		if !unicode.Is(RegularUseRangeTable, rune(v.Lo)) {
 			t.Errorf("boundary value error, %v, 0x%0X", range32(v), v.Lo)
 		}
-		if !unicode.Is(RangeTable, rune(v.Hi)) {
+		if !unicode.Is(RegularUseRangeTable, rune(v.Hi)) {
 			t.Errorf("boundary value error, %v, 0x%0X", range32(v), v.Hi)
 		}
 	}
