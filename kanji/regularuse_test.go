@@ -51,8 +51,8 @@ func TestIsNotRegularUseHan(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			for _, v := range tt.args {
-				if got := IsNotRegularUseHan(v); got != tt.want {
-					t.Errorf("IsNotRegularUseHan(%c) = %v, want %v", v, got, tt.want)
+				if got := IsNotRegularUse(v); got != tt.want {
+					t.Errorf("IsNotRegularUse(%c) = %v, want %v", v, got, tt.want)
 				}
 			}
 		})
@@ -129,13 +129,13 @@ func TestRegularUseHanDiscriminator_IsNotRegularUseHan(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := &RegularUseHanDiscriminator{
+			d := &RegularUseDiscriminator{
 				allow:    tt.fields.allow,
 				disallow: tt.fields.disallow,
 			}
 			for _, v := range tt.args {
-				if got := d.IsNotRegularUseHan(v); got != tt.want {
-					t.Errorf("IsNotRegularUseHan(%c) = %v, want %v", v, got, tt.want)
+				if got := d.IsNotRegularUse(v); got != tt.want {
+					t.Errorf("IsNotRegularUse(%c) = %v, want %v", v, got, tt.want)
 				}
 			}
 		})
@@ -180,12 +180,12 @@ func TestRegularUseHanDiscriminator_ReplaceNotRegularUseHanAll(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := &RegularUseHanDiscriminator{
+			d := &RegularUseDiscriminator{
 				allow:    tt.fields.allow,
 				disallow: tt.fields.disallow,
 			}
-			if got := d.ReplaceNotRegularUseHanAll(tt.args.s, tt.args.replacement); got != tt.want {
-				t.Errorf("ReplaceNotRegularUseHanAll() = %v, want %v", got, tt.want)
+			if got := d.ReplaceNotRegularUseAll(tt.args.s, tt.args.replacement); got != tt.want {
+				t.Errorf("ReplaceNotRegularUseAll() = %v, want %v", got, tt.want)
 			}
 		})
 	}

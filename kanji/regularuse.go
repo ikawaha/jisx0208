@@ -11,46 +11,46 @@ func IsRegularUse(r rune) bool {
 	return unicode.Is(RegularUseRangeTable, r)
 }
 
-// IsNotRegularUseHan returns true if the rune r is in the Han and is not in the regular use list (常用漢字表).
-func IsNotRegularUseHan(r rune) bool {
+// IsNotRegularUse returns true if the rune r is in the `unicode.Han` and is not in the regular use list (常用漢字表).
+func IsNotRegularUse(r rune) bool {
 	return unicode.Is(unicode.Han, r) && !unicode.Is(RegularUseRangeTable, r)
 }
 
 // Option represents an option for the discriminator.
-type Option func(d *RegularUseHanDiscriminator)
+type Option func(d *RegularUseDiscriminator)
 
 // Allow is a discriminator option to set allow characters.
 func Allow(r ...rune) Option {
-	return func(d *RegularUseHanDiscriminator) {
+	return func(d *RegularUseDiscriminator) {
 		d.allow = append(d.allow, r...)
 	}
 }
 
 // Disallow is a discriminator option to set disallow characters.
 func Disallow(r ...rune) Option {
-	return func(d *RegularUseHanDiscriminator) {
+	return func(d *RegularUseDiscriminator) {
 		d.disallow = append(d.disallow, r...)
 	}
 }
 
-// RegularUseHanDiscriminator determines if a character is in regular-use kanji or allowed/disallowed character.
-type RegularUseHanDiscriminator struct {
+// RegularUseDiscriminator determines if a character is in regular-use kanji or allowed/disallowed character.
+type RegularUseDiscriminator struct {
 	allow    []rune
 	disallow []rune
 }
 
-// NewRegularHanDiscriminator returns a regular Han character discriminator.
-func NewRegularHanDiscriminator(options ...Option) *RegularUseHanDiscriminator {
-	var ret RegularUseHanDiscriminator
+// NewRegularDiscriminator returns a regular kanji character discriminator.
+func NewRegularDiscriminator(options ...Option) *RegularUseDiscriminator {
+	var ret RegularUseDiscriminator
 	for _, option := range options {
 		option(&ret)
 	}
 	return &ret
 }
 
-// IsNotRegularUseHan returns true if the rune r is in allowed characters, else if return false r is in disallowed characters,
-// otherwise whether r is in JIS X0208 or not.
-func (d *RegularUseHanDiscriminator) IsNotRegularUseHan(r rune) bool {
+// IsNotRegularUse returns true if the rune r is in disallowed characters, else if return false r is in allowed characters,
+// otherwise whether r is not in regular-use kanji.
+func (d *RegularUseDiscriminator) IsNotRegularUse(r rune) bool {
 	for _, v := range d.allow {
 		if v == r {
 			return false
@@ -61,13 +61,13 @@ func (d *RegularUseHanDiscriminator) IsNotRegularUseHan(r rune) bool {
 			return true
 		}
 	}
-	return IsNotRegularUseHan(r)
+	return IsNotRegularUse(r)
 }
 
-// ReplaceNotRegularUseHanAll returns a copy of the string s with each run of not in regular-use Hans
+// ReplaceNotRegularUseAll returns a copy of the string s with each run of not in regular-use kanji
 // replaced by the replacement string, which may be empty.
-func (d *RegularUseHanDiscriminator) ReplaceNotRegularUseHanAll(s, replacement string) string {
-	return replace(s, replacement, func(r rune) bool { return !d.IsNotRegularUseHan(r) })
+func (d *RegularUseDiscriminator) ReplaceNotRegularUseAll(s, replacement string) string {
+	return replace(s, replacement, func(r rune) bool { return !d.IsNotRegularUse(r) })
 }
 
 func replace(s, replacement string, is func(rune) bool) string {
