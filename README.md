@@ -5,10 +5,10 @@
 
 This is a library related to character encoding.
 
-|package| description|
-|:---|:---|
+|package| description||
+|:---|:---|:---|
 | jisx0208 | [JIS X 0208](https://zenn.dev/ikawaha/articles/20210116-ab1ac4a692ae8bb4d9cf) (JIS 基本漢字) |
-| kanji | kanji package, including [the regular-use kanji characters (常用漢字表)](https://zenn.dev/ikawaha/articles/20210801-e995d788c30ec1) |
+| kanji | kanji package, including [the regular-use kanji characters](https://zenn.dev/ikawaha/articles/20210801-e995d788c30ec1) (常用漢字表) |
 
 ---
 MIT
