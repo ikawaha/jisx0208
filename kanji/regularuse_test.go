@@ -3,6 +3,7 @@ package kanji
 import (
 	"bufio"
 	"os"
+	"strings"
 	"testing"
 )
 
@@ -21,9 +22,22 @@ func TestIs_Golden(t *testing.T) {
 			t.Errorf("invalid golden data, line=%d, %s", line, txt)
 			continue
 		}
-		v := []rune(txt)[0]
-		if !IsRegularUse(v) {
-			t.Errorf("line=%d, want IsRegularUse(%s)=true, got false", line, string(v))
+		ary := strings.Split(txt, "\t")
+		if len(ary) == 0 {
+			t.Errorf("invalid golden data, line=%d, %s", line, txt)
+			continue
+		}
+		var target []rune
+		for _, v := range []rune(ary[0]) {
+			if v == '［' || v == '］' || v == '（' || v == '）' { // 餅［餅］（餠）
+				continue
+			}
+			target = append(target, v)
+		}
+		for _, v := range target {
+			if !IsRegularUse(v) {
+				t.Errorf("line=%d, want IsRegularUse(%s)=true, got false", line, string(v))
+			}
 		}
 	}
 	if err := s.Err(); err != nil {
@@ -66,14 +80,19 @@ func TestIsRegularUse(t *testing.T) {
 		want bool
 	}{
 		{
-			name: "OK",
+			name: "regular-use kanji characters",
 			args: "常用漢字挨曖宛嵐畏萎椅彙茨",
 			want: true,
 		},
 		{
-			name: "NG",
+			name: "not kanji characters",
 			args: "ひらがなカタカナ123😀",
 			want: false,
+		},
+		{
+			name: "old form or variant kanji characters",
+			args: "亞惡壓餌遡雙壯遜膽",
+			want: true,
 		},
 	}
 	for _, tt := range tests {

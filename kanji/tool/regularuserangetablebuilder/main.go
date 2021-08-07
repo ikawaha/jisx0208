@@ -4,8 +4,7 @@ import (
 	"bufio"
 	"log"
 	"os"
-
-	"github.com/ikawaha/encoding/internal"
+	"strings"
 )
 
 const csvFilePath = "../../testdata/golden_jyouyou_H22-11-30.csv"
@@ -15,8 +14,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	table := internal.RangeTable(runes)
-	internal.DumpRangeTable(os.Stdout, table)
+	table := RangeTable(runes)
+	DumpRangeTable(os.Stdout, table)
 }
 
 func loadRunesFromCSV(path string) ([]rune, error) {
@@ -30,13 +29,18 @@ func loadRunesFromCSV(path string) ([]rune, error) {
 	var ret []rune
 	i := 0
 	for s.Scan() {
-		row := []rune(s.Text())
+		row := strings.Split(s.Text(), "\t")
 		i++
 		if len(row) < 1 {
 			log.Println("empty line, line no:", i)
 			continue
 		}
-		ret = append(ret, row[0])
+		for _, v := range []rune(row[0]) {
+			if v == '［' || v == '］' || v == '（' || v == '）' { // 餅［餅］（餠）
+				continue
+			}
+			ret = append(ret, v)
+		}
 	}
 	return ret, s.Err()
 }

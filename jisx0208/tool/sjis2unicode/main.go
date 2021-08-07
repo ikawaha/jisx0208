@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-
-	"github.com/ikawaha/encoding/internal"
 )
 
 func main() {
@@ -33,6 +31,6 @@ func main() {
 
 	runes := mapper.Runes()
 	//fmt.Printf("runes: %d\n", len(runes))
-	table := internal.RangeTable(runes)
-	internal.DumpRangeTable(os.Stdout, table)
+	table := RangeTable(runes)
+	DumpRangeTable(os.Stdout, table)
 }
