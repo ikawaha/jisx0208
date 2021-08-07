@@ -47,8 +47,8 @@ func RangeTable(runes []rune) *unicode.RangeTable {
 }
 
 // DumpRangeTable write out the range table in Go source code format.
-func DumpRangeTable(w io.Writer, table *unicode.RangeTable) {
-	fmt.Fprintln(w, "var RangeTable = &unicode.RangeTable{")
+func DumpRangeTable(w io.Writer, name string, table *unicode.RangeTable) {
+	fmt.Fprintf(w, "var %s = &unicode.RangeTable{\n", name)
 	if len(table.R16) > 0 {
 		fmt.Println("\tR16: []unicode.Range16{")
 		for _, v := range table.R16 {

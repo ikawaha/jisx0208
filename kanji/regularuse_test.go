@@ -27,16 +27,26 @@ func TestIs_Golden(t *testing.T) {
 			t.Errorf("invalid golden data, line=%d, %s", line, txt)
 			continue
 		}
-		var target []rune
-		for _, v := range []rune(ary[0]) {
+		target := []rune(ary[0])
+		for i, v := range target {
 			if v == '［' || v == '］' || v == '（' || v == '）' { // 餅［餅］（餠）
 				continue
 			}
-			target = append(target, v)
-		}
-		for _, v := range target {
 			if !IsRegularUse(v) {
 				t.Errorf("line=%d, want IsRegularUse(%s)=true, got false", line, string(v))
+			}
+			if i == 0 {
+				if !IsStandardRegularUse(v) {
+					t.Errorf("line=%d, want IsStandardRegularUse(%s)=true, got false", line, string(v))
+				}
+			} else if target[i-1] == '（' {
+				if !IsOldFormRegularUse(v) {
+					t.Errorf("line=%d, want IsOldFormRegularUse(%s)=true, got false", line, string(v))
+				}
+			} else if target[i-1] == '［' {
+				if !IsTolerableRegularUse(v) {
+					t.Errorf("line=%d, want IsTolerableRegularUse(%s)=true, got false", line, string(v))
+				}
 			}
 		}
 	}

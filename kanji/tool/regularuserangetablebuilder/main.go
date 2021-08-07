@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -10,23 +11,33 @@ import (
 const csvFilePath = "../../testdata/golden_jyouyou_H22-11-30.csv"
 
 func main() {
-	runes, err := loadRunesFromCSV(csvFilePath)
+	standard, oldform, tolerable, err := loadRunesFromCSV(csvFilePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	table := RangeTable(runes)
-	DumpRangeTable(os.Stdout, table)
+
+	fmt.Fprintf(os.Stderr, "標準字体: %d 字, 旧字体: %d 字, 許容字体: %d 字\n", len(standard), len(oldform), len(tolerable))
+
+	standardTable := RangeTable(standard)
+	DumpRangeTable(os.Stdout, "StandardRegularUseRangeTable", standardTable)
+
+	oldFormTable := RangeTable(oldform)
+	DumpRangeTable(os.Stdout, "OldFormRegularUseRangeTable", oldFormTable)
+
+	tolerableTable := RangeTable(tolerable)
+	DumpRangeTable(os.Stdout, "TolerableRegularUseRangeTable", tolerableTable)
+
 }
 
-func loadRunesFromCSV(path string) ([]rune, error) {
+// 標準字体, 旧字体, 許容字体
+func loadRunesFromCSV(path string) (standard []rune, oldform []rune, tolerable []rune, err error) {
 	f, err := os.Open(path)
 	if err != nil {
-		return nil, err
+		return nil, nil, nil, err
 	}
 	defer f.Close()
 	s := bufio.NewScanner(f)
 
-	var ret []rune
 	i := 0
 	for s.Scan() {
 		row := strings.Split(s.Text(), "\t")
@@ -35,12 +46,19 @@ func loadRunesFromCSV(path string) ([]rune, error) {
 			log.Println("empty line, line no:", i)
 			continue
 		}
-		for _, v := range []rune(row[0]) {
+		col0 := []rune(row[0])
+		for i, v := range col0 {
 			if v == '［' || v == '］' || v == '（' || v == '）' { // 餅［餅］（餠）
 				continue
 			}
-			ret = append(ret, v)
+			if i == 0 {
+				standard = append(standard, v)
+			} else if col0[i-1] == '（' {
+				oldform = append(oldform, v)
+			} else if col0[i-1] == '［' {
+				tolerable = append(tolerable, v)
+			}
 		}
 	}
-	return ret, s.Err()
+	return standard, oldform, tolerable, s.Err()
 }

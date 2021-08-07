@@ -8,12 +8,27 @@ import (
 
 // IsRegularUse returns true if the rune r is in the regular-use list (常用漢字表).
 func IsRegularUse(r rune) bool {
-	return unicode.Is(RegularUseRangeTable, r)
+	return unicode.In(r, StandardRangeTable, OldFormRangeTable, TolerableRangeTable)
+}
+
+// IsStandardRegularUse returns true if the rune r is in the regular-use standard list (常用漢字表：標準字体).
+func IsStandardRegularUse(r rune) bool {
+	return unicode.Is(StandardRangeTable, r)
+}
+
+// IsOldFormRegularUse returns true if the rune r is in the regular-use old form list (常用漢字表：旧字体).
+func IsOldFormRegularUse(r rune) bool {
+	return unicode.Is(OldFormRangeTable, r)
+}
+
+// IsTolerableRegularUse returns true if the rune r is in the regular-use old form list (常用漢字表：許容字体).
+func IsTolerableRegularUse(r rune) bool {
+	return unicode.Is(TolerableRangeTable, r)
 }
 
 // IsNotRegularUse returns true if the rune r is in the `unicode.Han` and is not in the regular use list (常用漢字表).
 func IsNotRegularUse(r rune) bool {
-	return unicode.Is(unicode.Han, r) && !unicode.Is(RegularUseRangeTable, r)
+	return unicode.Is(unicode.Han, r) && !IsRegularUse(r)
 }
 
 // ReplaceNotRegularUseAll returns a copy of the string s with each run of not in regular-use kanji
