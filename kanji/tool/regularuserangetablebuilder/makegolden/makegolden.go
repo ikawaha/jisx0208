@@ -12,7 +12,7 @@ import (
 
 const (
 	// https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/kanji/joyokanjisakuin/index.html
-	jyouyouHTML = "../../testdata/jyouyou_H22-11-30.html"
+	jyouyouHTML = "../../../testdata/jyouyou_H22-11-30.html"
 )
 
 func OpenGoldenSrc(path string) (io.ReadCloser, error) {

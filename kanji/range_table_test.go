@@ -18,12 +18,13 @@ func (r range32) String() string {
 	return fmt.Sprintf("{Lo:0x%0X, Hi:0x%0X, Stride:%d}", r.Lo, r.Hi, r.Stride)
 }
 
-func TestExtendedCharacterValidation(t *testing.T) {
+func Test_CheckingRangeTables(t *testing.T) {
 	// R16
 	for _, table := range []*unicode.RangeTable{
 		StandardRangeTable,
 		OldFormRangeTable,
 		TolerableRangeTable,
+		DesignatedForPersonalNamesRangeTable,
 	} {
 		for i, v := range table.R16 {
 			// stride check
