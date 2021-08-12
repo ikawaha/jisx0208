@@ -70,6 +70,11 @@ func TestIsNotForPersonalNames(t *testing.T) {
 			want: false,
 		},
 		{
+			name: "for personal names",
+			args: "紗也茄",
+			want: false,
+		},
+		{
 			name: "NG",
 			args: "棗薔薇玻繚茗厦祟",
 			want: true,
