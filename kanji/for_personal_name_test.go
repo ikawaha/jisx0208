@@ -57,3 +57,31 @@ func TestIsForPersonalNames(t *testing.T) {
 		}
 	}
 }
+
+func TestIsNotForPersonalNames(t *testing.T) {
+	tests := []struct {
+		name string
+		args string
+		want bool
+	}{
+		{
+			name: "OK",
+			args: "漢字以外のひらがなやカタカナや😀などもOKとしています!",
+			want: false,
+		},
+		{
+			name: "NG",
+			args: "棗薔薇玻繚茗厦祟",
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			for _, v := range tt.args {
+				if got := IsNotForPersonalNames(v); got != tt.want {
+					t.Errorf("IsNotForPersonalNames(%c) = %v, want %v", v, got, tt.want)
+				}
+			}
+		})
+	}
+}
