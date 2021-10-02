@@ -1,14 +1,15 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/ikawaha/encoding.svg)](https://pkg.go.dev/github.com/ikawaha/encoding)
-![Go](https://github.com/ikawaha/encoding/workflows/Go/badge.svg)
+JIS X 0208
+===
 
-# encoding
+[Wikipedia](https://ja.wikipedia.org/wiki/JIS_X_0208) の JIS X 0208 項には以下のようにあります：
 
-This is a library related to character encoding.
+> JIS X 0208は、日本語表記、地名、人名などで用いられる6,879図形文字を含む、主として情報交換用の2バイト符号化文字集合を規定する日本産業規格 (JIS) である。現行の規格名称は7ビット及び8ビットの2バイト情報交換用符号化漢字集合 (7-bit and 8-bit double byte coded KANJI sets for information interchange) である。1978年にJIS C 6226として制定され、1983年、1990年および1997年に改正された。JIS漢字コード、JIS漢字、JIS第1第2水準漢字、JIS基本漢字などの通称がある。
 
-|package| description|
-|:---|:---|
-| [jisx0208](https://github.com/ikawaha/encoding/tree/main/jisx0208) | [JIS X 0208](https://zenn.dev/ikawaha/articles/20210116-ab1ac4a692ae8bb4d9cf) (JIS 基本漢字) |
-| [kanji](https://github.com/ikawaha/encoding/tree/main/kanji) | kanji package, including [the regular-use kanji characters](https://zenn.dev/ikawaha/articles/20210801-e995d788c30ec1) (常用漢字表), etc. |
+このパッケージでは、文字が JIS X 0208 に含まれるかどうかを判定します。
 
----
-MIT
+参考にした資料は以下です：
+
+* [図書館員のコンピュータ基礎講座:JIS X 0208コード表](https://www.asahi-net.or.jp/~ax2s-kmtn/ref/jisx0208.html)
+
+JIS X 0208 の文字集合は `unicode.RangeTable` として定義していますので、直接利用可能です。また、いくつかの関数も定義してあります。
+詳細は [ドキュメント](https://pkg.go.dev/github.com/ikawaha/encoding/jisx0208) を参照ください。
