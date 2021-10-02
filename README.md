@@ -1,5 +1,6 @@
 JIS X 0208
 ===
+This package is a library for the Japanese character code JIS X 0208.
 
 [Wikipedia](https://ja.wikipedia.org/wiki/JIS_X_0208) の JIS X 0208 項には以下のようにあります：
 
@@ -12,4 +13,5 @@ JIS X 0208
 * [図書館員のコンピュータ基礎講座:JIS X 0208コード表](https://www.asahi-net.or.jp/~ax2s-kmtn/ref/jisx0208.html)
 
 JIS X 0208 の文字集合は `unicode.RangeTable` として定義していますので、直接利用可能です。また、いくつかの関数も定義してあります。
-詳細は [ドキュメント](https://pkg.go.dev/github.com/ikawaha/encoding/jisx0208) を参照ください。
+詳細は [ドキュメント](https://pkg.go.dev/github.com/ikawaha/encoding/jisx0208) や[ブログ](https://zenn.dev/ikawaha/articles/20210116-ab1ac4a692ae8bb4d9cf)を参照ください。
+
