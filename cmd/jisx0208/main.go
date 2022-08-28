@@ -8,10 +8,6 @@ import (
 	"github.com/ikawaha/jisx0208"
 )
 
-func usage() {
-	fmt.Fprintf(os.Stderr, "jisx0208 [target_string]\n")
-}
-
 func main() {
 	if err := run(os.Args[1:]); err != nil {
 		fmt.Fprintf(os.Stderr, "%v", err)
