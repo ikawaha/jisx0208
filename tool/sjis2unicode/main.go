@@ -6,7 +6,9 @@ import (
 )
 
 func main() {
-	mapper, err := NewJIS0213RuneMapper()
+	mapper, err := NewJIS0208RuneMapper()
+	//mapper, err := NewJIS0208Level1RuneMapper()
+	//mapper, err := NewJIS0208Level2RuneMapper()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "sjis to unicode mapping construction failed: %v", err)
 		os.Exit(1)

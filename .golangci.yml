@@ -16,6 +16,12 @@ linters:
     - exhaustive
     - asciicheck
     - scopelint
+    - gosec
+    - varcheck    # deprecated
+    - structcheck # deprecated
+    - deadcode    #deprecated
+    - rowserrcheck   # https://github.com/golangci/golangci-lint/issues/2649
+    - sqlclosecheck  # https://github.com/golangci/golangci-lint/issues/2649
   presets:
     - bugs
     - unused
@@ -26,3 +32,6 @@ linters-settings:
     min-complexity: 15
   errcheck:
     ignore: fmt:.*,io/ioutil:^Read,^Close|^Write|^Shutdown
+  revive:
+    severity: warning
+    confidence: 0.8

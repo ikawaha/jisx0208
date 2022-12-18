@@ -11,6 +11,16 @@ func Is(r rune) bool {
 	return unicode.Is(RangeTable, r)
 }
 
+// IsLevel1 returns true if the rune r is in JIS X 0208 Level2 (第二水準).
+func IsLevel1(r rune) bool {
+	return unicode.Is(Level1RangeTable, r)
+}
+
+// IsLevel2 returns true if the rune r is in JIS X 0208 Level2 (第二水準).
+func IsLevel2(r rune) bool {
+	return unicode.Is(Level2RangeTable, r)
+}
+
 // ToValid returns a copy of the string s with each run of invalid JIS X 0208
 // runes replaced by the replacement string, which may be empty.
 func ToValid(s, replacement string) string {

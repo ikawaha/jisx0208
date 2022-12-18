@@ -13,26 +13,22 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        go: ['1.19.x']
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v3
+
       - name: Set up Go 1.x
         uses: actions/setup-go@v3
         with:
-          go-version: ${{ matrix.go }}
-
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v3
-        with:
-          path: src/github.com/ikawaha/jisx0208
+          go-version-file: go.mod
+          cache: true
 
       - name: Build
         run: go build -v ./...
-        working-directory: src/github.com/ikawaha/jisx0208
 
       - name: Test
         run: |
           go test -v ./...
-        working-directory: src/github.com/ikawaha/jisx0208
 
