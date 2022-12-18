@@ -1,6 +1,6 @@
 module sjis2unicode
 
-go 1.17
+go 1.19
 
 replace github.com/ikawaha/jisx0208 => ./../..
 

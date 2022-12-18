@@ -27,7 +27,7 @@ type CodeRange struct {
 	End   uint
 }
 
-// https://www.asahi-net.or.jp/~ax2s-kmtn/ref/jisx0213/index.html
+// https://www.asahi-net.or.jp/~ax2s-kmtn/ref/jisx0208.html
 var JISX0208SJIS = []CodeRange{
 	// 1区
 	{
@@ -452,6 +452,361 @@ var JISX0208SJIS = []CodeRange{
 	},
 }
 
+// https://www.asahi-net.or.jp/~ax2s-kmtn/ref/jisx0208.html
+// 第一水準
+var JISX0208SJISLevel1 = []CodeRange{
+	// 16区
+	{
+		Start: 0x889E + 0x1,
+		End:   0x88EE + 0xE,
+	},
+	// 17区
+	{
+		Start: 0x893F + 0x1,
+		End:   0x8990 + 0xE,
+	},
+	// 18区
+	{
+		Start: 0x899E + 0x1,
+		End:   0x89EE + 0xE,
+	},
+	// 19区
+	{
+		Start: 0x8A3F + 0x1,
+		End:   0x8A90 + 0xE,
+	},
+	// 20区
+	{
+		Start: 0x8A9E + 0x1,
+		End:   0x8AEE + 0xE,
+	},
+	// 21区
+	{
+		Start: 0x8B3F + 0x1,
+		End:   0x8B90 + 0xE,
+	},
+	// 22区
+	{
+		Start: 0x8B9E + 0x1,
+		End:   0x8BEE + 0xE,
+	},
+	// 23区
+	{
+		Start: 0x8C3F + 0x1,
+		End:   0x8C90 + 0xE,
+	},
+	// 24区
+	{
+		Start: 0x8C9E + 0x1,
+		End:   0x8CEE + 0xE,
+	},
+	// 25区
+	{
+		Start: 0x8D3F + 0x1,
+		End:   0x8D90 + 0xE,
+	},
+	// 26区
+	{
+		Start: 0x8D9E + 0x1,
+		End:   0x8DEE + 0xE,
+	},
+	// 27区
+	{
+		Start: 0x8E3F + 0x1,
+		End:   0x8E90 + 0xE,
+	},
+	// 28区
+	{
+		Start: 0x8E9E + 0x1,
+		End:   0x8EEE + 0xE,
+	},
+	// 29区
+	{
+		Start: 0x8F3F + 0x1,
+		End:   0x8F90 + 0xE,
+	},
+	// 30区
+	{
+		Start: 0x8F9E + 0x1,
+		End:   0x8FEE + 0xE,
+	},
+	// 31区
+	{
+		Start: 0x903F + 0x1,
+		End:   0x9090 + 0xE,
+	},
+	// 32区
+	{
+		Start: 0x909E + 0x1,
+		End:   0x90EE + 0xE,
+	},
+	// 33区
+	{
+		Start: 0x913F + 0x1,
+		End:   0x9190 + 0xE,
+	},
+	// 34区
+	{
+		Start: 0x919E + 0x1,
+		End:   0x91EE + 0xE,
+	},
+	// 35区
+	{
+		Start: 0x923F + 0x1,
+		End:   0x9290 + 0xE,
+	},
+	// 36区
+	{
+		Start: 0x929E + 0x1,
+		End:   0x92EE + 0xE,
+	},
+	// 37区
+	{
+		Start: 0x933F + 0x1,
+		End:   0x9390 + 0xE,
+	},
+	// 38区
+	{
+		Start: 0x939E + 0x1,
+		End:   0x93EE + 0xE,
+	},
+	// 39区
+	{
+		Start: 0x943F + 0x1,
+		End:   0x9490 + 0xE,
+	},
+	// 40区
+	{
+		Start: 0x949E + 0x1,
+		End:   0x94EE + 0xE,
+	},
+	// 41区
+	{
+		Start: 0x953F + 0x1,
+		End:   0x9590 + 0xE,
+	},
+	// 42区
+	{
+		Start: 0x959E + 0x1,
+		End:   0x95EE + 0xE,
+	},
+	// 43区
+	{
+		Start: 0x963F + 0x1,
+		End:   0x9690 + 0xE,
+	},
+	// 44区
+	{
+		Start: 0x969E + 0x1,
+		End:   0x96EE + 0xE,
+	},
+	// 45区
+	{
+		Start: 0x973F + 0x1,
+		End:   0x9790 + 0xE,
+	},
+	// 46区
+	{
+		Start: 0x979E + 0x1,
+		End:   0x97EE + 0xE,
+	},
+	// 47区
+	{
+		Start: 0x983F + 0x1,
+		End:   0x986F + 0x3,
+	},
+}
+
+// https://www.asahi-net.or.jp/~ax2s-kmtn/ref/jisx0208.html
+// 第二水準
+var JISX0208SJISLevel2 = []CodeRange{
+	// 48区
+	{
+		Start: 0x989E + 0x1,
+		End:   0x98EE + 0xE,
+	},
+	// 49区
+	{
+		Start: 0x993F + 0x1,
+		End:   0x9990 + 0xE,
+	},
+	// 50区
+	{
+		Start: 0x999E + 0x1,
+		End:   0x99EE + 0xE,
+	},
+	// 51区
+	{
+		Start: 0x9A3F + 0x1,
+		End:   0x9A90 + 0xE,
+	},
+	// 52区
+	{
+		Start: 0x9A9E + 0x1,
+		End:   0x9AEE + 0xE,
+	},
+	// 53区
+	{
+		Start: 0x9B3F + 0x1,
+		End:   0x9B90 + 0xE,
+	},
+	// 54区
+	{
+		Start: 0x9B9E + 0x1,
+		End:   0x9BEE + 0xE,
+	},
+	// 55区
+	{
+		Start: 0x9C3F + 0x1,
+		End:   0x9C90 + 0xE,
+	},
+	// 56区
+	{
+		Start: 0x9C9E + 0x1,
+		End:   0x9CEE + 0xE,
+	},
+	// 57区
+	{
+		Start: 0x9D3F + 0x1,
+		End:   0x9D90 + 0xE,
+	},
+	// 58区
+	{
+		Start: 0x9D9E + 0x1,
+		End:   0x9DEE + 0xE,
+	},
+	// 59区
+	{
+		Start: 0x9E3F + 0x1,
+		End:   0x9E90 + 0xE,
+	},
+	// 60区
+	{
+		Start: 0x9E9E + 0x1,
+		End:   0x9EEE + 0xE,
+	},
+	// 61区
+	{
+		Start: 0x9F3F + 0x1,
+		End:   0x9F90 + 0xE,
+	},
+	// 62区
+	{
+		Start: 0x9F9E + 0x1,
+		End:   0x9FEE + 0xE,
+	},
+	// 63区
+	{
+		Start: 0xE03F + 0x1,
+		End:   0xE090 + 0xE,
+	},
+	// 64区
+	{
+		Start: 0xE09E + 0x1,
+		End:   0xE0EE + 0xE,
+	},
+	// 65区
+	{
+		Start: 0xE13F + 0x1,
+		End:   0xE190 + 0xE,
+	},
+	// 66区
+	{
+		Start: 0xE19E + 0x1,
+		End:   0xE1EE + 0xE,
+	},
+	// 67区
+	{
+		Start: 0xE23F + 0x1,
+		End:   0xE290 + 0xE,
+	},
+	// 68区
+	{
+		Start: 0xE29E + 0x1,
+		End:   0xE2EE + 0xE,
+	},
+	// 69区
+	{
+		Start: 0xE33F + 0x1,
+		End:   0xE390 + 0xE,
+	},
+	// 70区
+	{
+		Start: 0xE39E + 0x1,
+		End:   0xE3EE + 0xE,
+	},
+	// 71区
+	{
+		Start: 0xE43F + 0x1,
+		End:   0xE490 + 0xE,
+	},
+	// 72区
+	{
+		Start: 0xE49E + 0x1,
+		End:   0xE4EE + 0xE,
+	},
+	// 73区
+	{
+		Start: 0xE53F + 0x1,
+		End:   0xE590 + 0xE,
+	},
+	// 74区
+	{
+		Start: 0xE59E + 0x1,
+		End:   0xE5EE + 0xE,
+	},
+	// 75区
+	{
+		Start: 0xE63F + 0x1,
+		End:   0xE690 + 0xE,
+	},
+	// 76区
+	{
+		Start: 0xE69E + 0x1,
+		End:   0xE6EE + 0xE,
+	},
+	// 77区
+	{
+		Start: 0xE73F + 0x1,
+		End:   0xE790 + 0xE,
+	},
+	// 78区
+	{
+		Start: 0xE79E + 0x1,
+		End:   0xE7EE + 0xE,
+	},
+	// 79区
+	{
+		Start: 0xE83F + 0x1,
+		End:   0xE890 + 0xE,
+	},
+	// 80区
+	{
+		Start: 0xE89E + 0x1,
+		End:   0xE8EE + 0xE,
+	},
+	// 81区
+	{
+		Start: 0xE93F + 0x1,
+		End:   0xE990 + 0xE,
+	},
+	// 82区
+	{
+		Start: 0xE99E + 0x1,
+		End:   0xE9EE + 0xE,
+	},
+	// 83区
+	{
+		Start: 0xEA3F + 0x1,
+		End:   0xEA90 + 0xE,
+	},
+	// 84区
+	{
+		Start: 0xEA9E + 0x1,
+		End:   0xEA9E + 0x6,
+	},
+}
+
 type RuneMapper map[rune][]SJISCode
 
 func (m RuneMapper) AddCode(code SJISCode) error {
@@ -491,7 +846,7 @@ func (m RuneMapper) Runes() []rune {
 	return ret
 }
 
-func NewJIS0213RuneMapper() (*RuneMapper, error) {
+func NewJIS0208RuneMapper() (*RuneMapper, error) {
 	ret := RuneMapper{}
 	// latin
 	for i := byte(0x20); i <= 0x7e; i++ {
@@ -505,4 +860,24 @@ func NewJIS0213RuneMapper() (*RuneMapper, error) {
 	}
 	return &ret, nil
 
+}
+
+func NewJIS0208Level1RuneMapper() (*RuneMapper, error) {
+	ret := RuneMapper{}
+	for _, v := range JISX0208SJISLevel1 {
+		if err := ret.AddCodeRange(v); err != nil {
+			return nil, err
+		}
+	}
+	return &ret, nil
+}
+
+func NewJIS0208Level2RuneMapper() (*RuneMapper, error) {
+	ret := RuneMapper{}
+	for _, v := range JISX0208SJISLevel2 {
+		if err := ret.AddCodeRange(v); err != nil {
+			return nil, err
+		}
+	}
+	return &ret, nil
 }
