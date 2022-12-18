@@ -163,7 +163,7 @@ func TestIs_Golden(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	defer f.Close() //nolint:gosec
+	defer f.Close()
 	s := bufio.NewScanner(f)
 	var line int
 	for s.Scan() {
@@ -180,6 +180,70 @@ func TestIs_Golden(t *testing.T) {
 		v := []rune(txt)[0]
 		if !Is(v) {
 			t.Errorf("line=%d, want Is(%s)=true, got false", line, string(v))
+		}
+	}
+	if err := s.Err(); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+}
+
+func Test_GoldenLevel1(t *testing.T) {
+	f, err := os.Open("./testdata/golden_level1.txt")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	defer f.Close()
+	s := bufio.NewScanner(f)
+	var line int
+	for s.Scan() {
+		line++
+		txt := s.Text()
+		if txt == "" {
+			t.Errorf("invalid golden data, line=%d, %s", line, txt)
+			continue
+		}
+		if strings.HasPrefix(txt, "!!!!") {
+			t.Log(txt)
+			continue
+		}
+		v := []rune(txt)[0]
+		if !IsLevel1(v) {
+			t.Errorf("line=%d, want IsLevel1(%s)=true, got false", line, string(v))
+		}
+		if IsLevel2(v) {
+			t.Errorf("line=%d, want IsLevel2(%s)=false, got true", line, string(v))
+		}
+	}
+	if err := s.Err(); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+}
+
+func TestI_GoldenLevel2(t *testing.T) {
+	f, err := os.Open("./testdata/golden_level2.txt")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	defer f.Close()
+	s := bufio.NewScanner(f)
+	var line int
+	for s.Scan() {
+		line++
+		txt := s.Text()
+		if txt == "" {
+			t.Errorf("invalid golden data, line=%d, %s", line, txt)
+			continue
+		}
+		if strings.HasPrefix(txt, "!!!!") {
+			t.Log(txt)
+			continue
+		}
+		v := []rune(txt)[0]
+		if IsLevel1(v) {
+			t.Errorf("line=%d, want IsLevel1(%s)=false, got true", line, string(v))
+		}
+		if !IsLevel2(v) {
+			t.Errorf("line=%d, want IsLevel2(%s)=true, got false", line, string(v))
 		}
 	}
 	if err := s.Err(); err != nil {
