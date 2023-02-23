@@ -4,7 +4,4 @@ go 1.19
 
 replace github.com/ikawaha/jisx0208 => ./../..
 
-require (
-	github.com/ikawaha/jisx0208 v0.0.0-00010101000000-000000000000
-	golang.org/x/text v0.3.6
-)
+require golang.org/x/text v0.3.8
