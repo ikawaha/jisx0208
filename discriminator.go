@@ -11,7 +11,7 @@ func Is(r rune) bool {
 	return unicode.Is(RangeTable, r)
 }
 
-// IsLevel1 returns true if the rune r is in JIS X 0208 Level2 (第二水準).
+// IsLevel1 returns true if the rune r is in JIS X 0208 Level1 (第一水準).
 func IsLevel1(r rune) bool {
 	return unicode.Is(Level1RangeTable, r)
 }
