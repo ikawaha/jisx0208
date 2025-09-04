@@ -1,37 +1,9 @@
-run:
-  skip-dirs:
-    - tool
-issues:
-  exclude-use-default: false
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - gocyclo
-
+version: "2"
 linters:
-  enable:
-    - gocyclo
-    - revive
-  disable:
-    - exhaustive
-    - asciicheck
-    - scopelint
-    - gosec
-    - varcheck    # deprecated
-    - structcheck # deprecated
-    - deadcode    #deprecated
-    - rowserrcheck   # https://github.com/golangci/golangci-lint/issues/2649
-    - sqlclosecheck  # https://github.com/golangci/golangci-lint/issues/2649
-  presets:
-    - bugs
-    - unused
-    - format
-
-linters-settings:
-  gocyclo:
-    min-complexity: 15
-  errcheck:
-    ignore: fmt:.*,io/ioutil:^Read,^Close|^Write|^Shutdown
-  revive:
-    severity: warning
-    confidence: 0.8
+  default: standard
+  settings:
+    gocyclo:
+        min-complexity: 15
+    errcheck:
+      exclude-functions:
+        - (*os.File).Close
